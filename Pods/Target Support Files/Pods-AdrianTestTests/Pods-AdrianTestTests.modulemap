@@ -1,0 +1,6 @@
+framework module Pods_AdrianTestTests {
+  umbrella header "Pods-AdrianTestTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
