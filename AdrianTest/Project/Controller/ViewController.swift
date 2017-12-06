@@ -32,7 +32,7 @@ class ViewController:BaseViewController, UITableViewDelegate {
     override func configureCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let mediaCell = tableView.dequeueReusableCell(withIdentifier: "mediaCell", for: indexPath) as! MediaCell
         mediaCell.selectionStyle = .none
-        mediaCell.imgViewGif.clipsToBounds = true
+       
         if(searchActive){
             if self.tagsFilterResult.count > 0 {
                 if let gifLink = self.tagsFilterResult[indexPath.row].image {
@@ -40,6 +40,9 @@ class ViewController:BaseViewController, UITableViewDelegate {
                 }else{
                     mediaCell.imgViewGif.image = UIImage(named:"defaultImg")
                 }
+                mediaCell.imgViewGif.contentMode = .scaleAspectFill
+                mediaCell.imgViewGif.clipsToBounds = true
+                mediaCell.imgViewGif.layer.cornerRadius = mediaCell.imgViewGif.frame.width / 2
             }
         }else{
             if let gifLink = self.tags[indexPath.row].image {
@@ -47,6 +50,9 @@ class ViewController:BaseViewController, UITableViewDelegate {
             }else{
                 mediaCell.imgViewGif.image = UIImage(named:"defaultImg")
             }
+            mediaCell.imgViewGif.contentMode = .scaleAspectFill
+            mediaCell.imgViewGif.clipsToBounds = true
+            mediaCell.imgViewGif.layer.cornerRadius = mediaCell.imgViewGif.frame.width / 2
         }
         return mediaCell
     }
