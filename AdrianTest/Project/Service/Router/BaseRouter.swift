@@ -10,7 +10,8 @@ import Foundation
 import Alamofire
 
 enum BaseURL: String {
-    case dev = "https://api.tenor.com/v1"
+    case dev = "https://api.tenor.com"
+    
 }
 
 public typealias JSONDictionary = [String: AnyObject]
@@ -30,12 +31,13 @@ protocol APIConfiguration {
 class BaseRouter: URLRequestConvertible, APIConfiguration {
     public func asURLRequest() throws -> URLRequest {
         
-        let URL = NSURL(string: baseUrl)!
-        let url = NSURL(string: path, relativeTo:URL as URL)!
-        print("url Base: ",baseUrl)
-        print("url End: ",path)
-        var urlRequest = URLRequest(url: url as URL)
+        let URL = NSURL(string: baseUrl)
+        let url = NSURL(string: path, relativeTo:URL as URL?)
+        print("url : ",baseUrl + path)
+      
+        var urlRequest = URLRequest(url: url! as URL)
         urlRequest.httpMethod = method.rawValue
+        urlRequest.setValue("", forHTTPHeaderField: "Authorization")
         urlRequest = try encoding!.encode(urlRequest, with: parameters)
         return urlRequest
     }

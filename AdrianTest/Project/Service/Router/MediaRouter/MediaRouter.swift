@@ -32,7 +32,7 @@ class MediaRouter: BaseRouter {
     
     override var path: String {
         switch endpoint {
-        case .getMediaList(): return "/tags?key=LIVDSRZULELA"
+        case .getMediaList(): return "/v1/tags?key=LIVDSRZULELA"
       
         }
     }
