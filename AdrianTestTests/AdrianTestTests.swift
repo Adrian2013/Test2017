@@ -33,4 +33,13 @@ class AdrianTestTests: XCTestCase {
         }
     }
     
+    func testApi() {
+        _ = MediaManager.shared.getGifListWebservice(completion: { (media) in
+            XCTAssert(true)
+        }, failure: { (error) in
+            XCTAssert(false)
+        })
+    }
+   
+    
 }
