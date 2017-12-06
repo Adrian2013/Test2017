@@ -9,23 +9,16 @@
 import UIKit
 import Alamofire
 
-class ViewController:BaseViewController, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
+class ViewController:BaseViewController, UITableViewDelegate {
     
     //MARK: Property
-    @IBOutlet var searchBar:UISearchBar!
     var tags:[Tags] = []
     var tagsFilterResult:[Tags] = []
-    var searchActive : Bool = false
-    
-    
+  
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.apiCall()
-        searchBar.placeholder = "search"
-        searchBar.delegate = self
-        self.hideKeyboardWhenTappedAround()
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,11 +30,9 @@ class ViewController:BaseViewController, UITableViewDelegate, UISearchBarDelegat
     
     // MARK: - TableView
     override func configureCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let mediaCell = tableView.dequeueReusableCell(withIdentifier: "mediaCell", for: indexPath) as! MediaCell
         mediaCell.selectionStyle = .none
         mediaCell.imgViewGif.clipsToBounds = true
-        
         if(searchActive){
             if self.tagsFilterResult.count > 0 {
                 if let gifLink = self.tagsFilterResult[indexPath.row].image {
@@ -57,11 +48,10 @@ class ViewController:BaseViewController, UITableViewDelegate, UISearchBarDelegat
                 mediaCell.imgViewGif.image = UIImage(named:"defaultImg")
             }
         }
-        
         return mediaCell
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if(searchActive) {
             return tagsFilterResult.count
         }
@@ -79,12 +69,6 @@ class ViewController:BaseViewController, UITableViewDelegate, UISearchBarDelegat
         return 250
     }
     
-    func hideKeyboard()
-    {
-        self.view.endEditing(true)
-    }
-    
-    
     //MARK: Api Call
     func apiCall(){
         _ = MediaManager.shared.getGifListWebservice(completion: { (media) in
@@ -96,25 +80,6 @@ class ViewController:BaseViewController, UITableViewDelegate, UISearchBarDelegat
         })
     }
     
-    //MARK: Search bar
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchActive = true;
-        
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchActive = false;
-        
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false;
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchActive = false;
-        self.searchBar.endEditing(true)
-    }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         tagsFilterResult = tags.filter({ (text) -> Bool in
             let tmp: NSString = text.searchterm! as NSString
@@ -126,24 +91,11 @@ class ViewController:BaseViewController, UITableViewDelegate, UISearchBarDelegat
         } else {
             searchActive = true;
         }
-        
-        
         self.tableView.reloadData()
     }
     
 }
 
 
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
 
 

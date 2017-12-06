@@ -9,13 +9,17 @@
 import Foundation
 import UIKit
 
-class BaseViewController: UIViewController, UITextFieldDelegate {
+class BaseViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-  
+    @IBOutlet var searchBar:UISearchBar!
+    var searchActive : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.placeholder = "search"
+        searchBar.delegate = self
+        self.hideKeyboardWhenTappedAround()
         
     }
     
@@ -42,12 +46,31 @@ extension BaseViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // let objectsCount = fetchedResultsController.sections![section].numberOfObjects
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return configureCell(tableView, cellForRowAt: indexPath)
+    }
+    
+    //MARK: Search bar
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true;
+        
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false;
+        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false;
+        self.searchBar.endEditing(true)
     }
 }
 
@@ -64,3 +87,16 @@ class PopSegue: UIStoryboardSegue {
         self.source.navigationController?.popViewController(animated: true)
     }
 }
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
