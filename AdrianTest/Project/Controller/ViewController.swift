@@ -14,7 +14,7 @@ class ViewController:BaseViewController, UITableViewDelegate {
     //MARK: Property
     var tags:[Tags] = []
     var tagsFilterResult:[Tags] = []
-  
+    
     //MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,6 @@ class ViewController:BaseViewController, UITableViewDelegate {
     override func configureCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let mediaCell = tableView.dequeueReusableCell(withIdentifier: "mediaCell", for: indexPath) as! MediaCell
         mediaCell.selectionStyle = .none
-       
         if(searchActive){
             if self.tagsFilterResult.count > 0 {
                 if let gifLink = self.tagsFilterResult[indexPath.row].image {
@@ -40,9 +39,6 @@ class ViewController:BaseViewController, UITableViewDelegate {
                 }else{
                     mediaCell.imgViewGif.image = UIImage(named:"defaultImg")
                 }
-                mediaCell.imgViewGif.contentMode = .scaleAspectFill
-                mediaCell.imgViewGif.clipsToBounds = true
-                mediaCell.imgViewGif.layer.cornerRadius = mediaCell.imgViewGif.frame.width / 2
             }
         }else{
             if let gifLink = self.tags[indexPath.row].image {
@@ -50,10 +46,10 @@ class ViewController:BaseViewController, UITableViewDelegate {
             }else{
                 mediaCell.imgViewGif.image = UIImage(named:"defaultImg")
             }
-            mediaCell.imgViewGif.contentMode = .scaleAspectFill
-            mediaCell.imgViewGif.clipsToBounds = true
-            mediaCell.imgViewGif.layer.cornerRadius = mediaCell.imgViewGif.frame.width / 2
         }
+        mediaCell.imgViewGif.contentMode = .scaleAspectFill
+        mediaCell.imgViewGif.clipsToBounds = true
+        mediaCell.imgViewGif.layer.cornerRadius = mediaCell.imgViewGif.frame.width / 2
         return mediaCell
     }
     
@@ -77,12 +73,15 @@ class ViewController:BaseViewController, UITableViewDelegate {
     
     //MARK: Api Call
     func apiCall(){
+         self.activityIndicator.startAnimating()
         _ = MediaManager.shared.getGifListWebservice(completion: { (media) in
             self.tags = media.tags!
             self.tableView.reloadData()
-            print("Count",self.tags.count)
+            self.activityIndicator.stopAnimating()
+            
         }, failure: { (error) in
             print("Fail")
+            self.activityIndicator.stopAnimating()
         })
     }
     
@@ -99,6 +98,7 @@ class ViewController:BaseViewController, UITableViewDelegate {
         }
         self.tableView.reloadData()
     }
+    
     
 }
 

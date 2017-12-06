@@ -12,13 +12,13 @@ import UIKit
 class BaseViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate, UISearchDisplayDelegate {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet var searchBar:UISearchBar!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    let searchBar = UISearchBar()
     var searchActive : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.placeholder = "search"
-        searchBar.delegate = self
+        self.setupUi()
         self.hideKeyboardWhenTappedAround()
         
     }
@@ -32,11 +32,25 @@ class BaseViewController: UIViewController, UITextFieldDelegate, UISearchBarDele
         present(alert, animated: true, completion: nil)
     }
     
-  
-    // MARK: -
+    
+    // MARK: - Cell
     func configureCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()
     }
+    func setupNavigationBar() {
+        let searchBarContainer = SearchBarContainerView(customSearchBar: searchBar)
+        searchBarContainer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
+        navigationItem.titleView = searchBarContainer
+    }
+    // MARK: - UI
+    func setupUi(){
+        setupNavigationBar()
+        searchBar.placeholder = "search"
+        searchBar.delegate = self
+        tableView.separatorStyle = .none
+        self.activityIndicator.hidesWhenStopped = true
+    }
+    
 }
 
 // MARK: - TableView
@@ -72,6 +86,8 @@ extension BaseViewController: UITableViewDataSource {
         searchActive = false;
         self.searchBar.endEditing(true)
     }
+    
+    
 }
 
 

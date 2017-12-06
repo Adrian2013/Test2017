@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E0Z-bH-J63">
-                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mediaCell" rowHeight="250" id="9n3-gJ-azf" customClass="MediaCell" customModule="AdrianTest" customModuleProvider="target">
@@ -60,35 +60,30 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="de0-Hi-iAg"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="T5k-vX-QXP">
-                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="yRm-8w-8s4"/>
-                                </connections>
-                            </searchBar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Zqr-gb-bLx">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="T5k-vX-QXP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9gd-7y-exC"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="T5k-vX-QXP" secondAttribute="trailing" id="Bi2-uf-Ine"/>
+                            <constraint firstItem="Zqr-gb-bLx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="AYa-oG-ccw"/>
+                            <constraint firstItem="Zqr-gb-bLx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JMt-v5-JKN"/>
                             <constraint firstItem="E0Z-bH-J63" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bED-ca-P4f"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="E0Z-bH-J63" secondAttribute="trailing" id="fTV-Ja-NVv"/>
-                            <constraint firstItem="E0Z-bH-J63" firstAttribute="top" secondItem="T5k-vX-QXP" secondAttribute="bottom" id="mYd-PJ-22D"/>
-                            <constraint firstItem="T5k-vX-QXP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pMD-go-6Sc"/>
+                            <constraint firstItem="E0Z-bH-J63" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ldH-5Z-nzx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="E0Z-bH-J63" secondAttribute="bottom" id="tVW-IG-Aok"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="ump-3l-eNJ"/>
                     <connections>
-                        <outlet property="searchBar" destination="T5k-vX-QXP" id="tlV-p1-Rxa"/>
+                        <outlet property="activityIndicator" destination="Zqr-gb-bLx" id="raJ-eO-Zft"/>
                         <outlet property="tableView" destination="E0Z-bH-J63" id="fD7-kE-7Rc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-230" y="325"/>
+            <point key="canvasLocation" x="-231.19999999999999" y="324.28785607196403"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jU3-x1-wEJ">
