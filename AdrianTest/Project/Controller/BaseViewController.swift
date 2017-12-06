@@ -23,16 +23,6 @@ class BaseViewController: UIViewController, UITextFieldDelegate, UISearchBarDele
         
     }
     
-    func showContinueAlert(title: String, message: String, cancelTitle: String, confirmTitle: String, accepted:@escaping ()->()) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: confirmTitle, style: .destructive, handler: { (action) in
-            accepted()
-        }))
-        alert.addAction(UIAlertAction(title: cancelTitle, style: .default, handler: { (action) in }))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    
     // MARK: - Cell
     func configureCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return UITableViewCell()

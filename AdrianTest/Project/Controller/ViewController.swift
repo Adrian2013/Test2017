@@ -65,6 +65,17 @@ class ViewController:BaseViewController, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let uiAlertController = UIAlertController(
+            title: "Message",
+            message: "Uploading to app..",
+            preferredStyle:.alert)
+        uiAlertController.addAction(
+            UIAlertAction.init(title: "Cancel", style: .default, handler: { (UIAlertAction) in
+                uiAlertController.dismiss(animated: true, completion: nil)
+            }))
+        self.present(uiAlertController, animated: true, completion: nil)
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
